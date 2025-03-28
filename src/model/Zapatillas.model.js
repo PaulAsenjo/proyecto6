@@ -13,6 +13,7 @@ const zapatillasSchema = new Schema({
         enum: ["En colección", "Pendiente", "Vendida"], 
         default: "Pendiente" 
     },
+    isActive: { type: Boolean, default: true }
 }, { versionKey: false, timestamps: false });
 
 export const Zapatillas = mongoose.model("zapatillas", zapatillasSchema);
