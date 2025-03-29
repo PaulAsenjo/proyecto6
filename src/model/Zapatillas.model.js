@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from 'mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -17,3 +17,10 @@ const zapatillasSchema = new Schema({
 }, { versionKey: false, timestamps: false });
 
 export const Zapatillas = mongoose.model("zapatillas", zapatillasSchema);
+
+
+
+
+
+
+

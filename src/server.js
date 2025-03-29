@@ -8,7 +8,7 @@ import { errorHandler } from "./middlewares/errorhandler.js";
 
 const app = express();
 
-dbConnect()
+dbConnect();
 
 //Middlewares de CORS
 

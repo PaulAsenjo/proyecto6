@@ -1,4 +1,4 @@
-import { createZapatillasService, getAllZapatillasService, getZapatillasByIDService, permaDeleteZapatillaByIdService, updateZapatillasByIdService } from "../services/zapatillas.service.js";
+import { createZapatillasService, deleteZapatillasByIdService, getAllZapatillasService, getZapatillasByIDService, permaDeleteZapatillaByIdService, updateZapatillasByIdService } from "../services/zapatillas.service.js";
 
 export const getAllZapatillas = async(req, res, next) => {
     try {
@@ -81,3 +81,20 @@ export const permaDeleteZapatillaById = async(req, res, next) => {
         next(error);
     }
 };
+
+
+export const deleteZapatillaById = async(req, res, next) => {
+    try {
+        const { id } = req.params;
+        const zapatilla = await deleteZapatillasByIdService(id);
+
+        res.status(200).json({
+            message: `Zapatillas con el id: ${id} eliminada con éxito`,
+            statusCode: 200,
+            data: zapatilla,
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+    

@@ -11,4 +11,9 @@ export const notFoundData = (data, message, details) => {
         message || "No se encontraron los datos",
         details || "No se encontraron los datos solicitados"
     );
+
+    if(!data.isActive) throw new NotFoundError(
+        message || "No se encontraron los datos",
+        details || "No se encontraron los datos solicitados"
+    );
 };
