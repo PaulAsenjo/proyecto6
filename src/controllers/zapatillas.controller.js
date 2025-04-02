@@ -1,4 +1,13 @@
-import { createZapatillasService, deleteZapatillasByIdService, getAllZapatillasService, getZapatillasByIDService, permaDeleteZapatillaByIdService, updateZapatillasByIdService } from "../services/zapatillas.service.js";
+import { 
+    createZapatillasService, 
+    deleteZapatillasByIdService, 
+    getAllZapatillasService, 
+    getDeleteAllZapatillasService, 
+    getDeleteZapatillasByIdService, 
+    getZapatillasByIDService, 
+    permaDeleteZapatillaByIdService, 
+    restoreZapatillasByIdService, 
+    updateZapatillasByIdService } from "../services/zapatillas.service.js";
 
 export const getAllZapatillas = async(req, res, next) => {
     try {
@@ -96,5 +105,53 @@ export const deleteZapatillaById = async(req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+};
+
+
+export const restoreZapatillasById = async(req, res, next) => {
+    try {
+        const { id } = req.params;
+        const zapatilla = await restoreZapatillasByIdService(id);
+
+        res.status(200).json({
+            message: `Zapatillas con el id: ${id} restaurada con éxito`,
+            statusCode: 200,
+            data: zapatilla,
+        });    
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+
+//ADMIN
+export const getDeleteAllZapatillas = async(req, res, next) => {
+    try {
+        const zapatillas = await getDeleteAllZapatillasService();
+
+        res.status(200).json({
+            message: "Zapatillas encontradas con éxito",
+            statusCode: 200,
+            data: zapatillas 
+        });
+    } catch (error) {
+        next(error);    
+    }
+};
+
+export const getDeleteZapatillasByID = async(req, res, next) => {
+    try {
+        const { id } = req.params;
+        const zapatillas = await getDeleteZapatillasByIdService(id);
+
+        res.status(200).json({
+            message: `Zapatillas con el id: ${id} encontrada con éxito`,
+            statusCode: 200,
+            data: zapatillas 
+        });
+    } catch (error) {
+        next(error);
+    }
+};
     

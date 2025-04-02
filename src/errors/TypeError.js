@@ -24,6 +24,13 @@ export class ZapatillasError extends CustomError {
     }
 }
 
+
+export class AuthError extends CustomError {
+    constructor(message, statusCode, details) {
+        super(message || "Error de autentificacion", statusCode || 401, details);
+    }
+}
+
 export class InternalServerError extends CustomError {
     constructor(message, statusCode, details) {
         super(message || "Error interno en el servidor", statusCode || 500, details);

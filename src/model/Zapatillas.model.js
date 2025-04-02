@@ -14,7 +14,15 @@ const zapatillasSchema = new Schema({
         default: "Pendiente" 
     },
     isActive: { type: Boolean, default: true }
-}, { versionKey: false, timestamps: false });
+}, { 
+    toJSON:{
+        transform: (doc, ret) => {
+            delete ret.isActive;
+            return ret;
+        }
+    },
+    versionKey: false, 
+    timestamps: false });
 
 export const Zapatillas = mongoose.model("zapatillas", zapatillasSchema);
 
