@@ -4,6 +4,7 @@ import { AuthError } from "../errors/TypeError.js";
 import { Usuario } from "../model/Usuario.model.js";
 import { formateUserData } from "../utils/formateUserCreate.js";
 import { comparePassword, hashPassword } from "../utils/hashPassword.js";
+import { notFoundActiveData } from "../utils/validate.js";
 
 import { envs } from "../config/envs.config.js";
 
@@ -39,6 +40,7 @@ export const registerService = async({
     }
 };
 
+
 export const loginService = async({ correo, password }) => {
     try {
        const user = await Usuario.findOne({ correo }); 
@@ -48,7 +50,6 @@ export const loginService = async({ correo, password }) => {
        if(!user || !passwordMatch) {
         throw new AuthError("Credenciales incorrectas", 401);
        }
-    console.log(jwtExpiration)
        const token = jwt.sign({
            uid: user._id,
            nombre: user.nombre,
@@ -62,3 +63,33 @@ export const loginService = async({ correo, password }) => {
         throw new AuthError("Error al intentar iniciar sesión", 500, error);
     }
 };
+
+//Actualizar datos usuario
+export const updatePersonalInfoByIdService = async(id, dataUsuario) => {
+    try {
+        const datosUsuarioOld = await Usuario.findOneAndUpdate(
+            { _id: id, isActive: true }, 
+            dataUsuario);
+        
+        notFoundActiveData(
+            datosUsuarioOld,
+            `No pudimos encontrar el usuario con el id: ${id}`,
+            `No pudimos encontrar el usuario con el id: ${id} en la base de datos en la colección de usuarios`
+        );
+
+        const datosUsuarioUpdated = await Usuario.findOneAndUpdate(
+            { _id: id, isActive: true },
+            dataUsuario,
+            { new: true } // Devuelve el documento actualizado
+        );
+
+        return [datosUsuarioOld, datosUsuarioUpdated];
+    } catch (error) {
+        throw new AuthError("Error al intentar actualizar los datos del usuario con el ID", 500, error);
+    }
+};
+
+
+
+
+        

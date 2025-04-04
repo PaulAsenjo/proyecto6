@@ -1,10 +1,9 @@
-import { loginService, registerService } from "../services/auth.service.js";
+import { loginService, registerService, updatePersonalInfoByIdService } from "../services/auth.service.js";
 
 
 export const register = async(req, res, next) => {
     try {     
         const userData = req.body;
-        console.log("📌 Datos recibidos en la API:", userData);
         const user = await registerService(userData);
 
         res.status(201).json({
@@ -14,7 +13,6 @@ export const register = async(req, res, next) => {
         });
     } catch (error) {
         next(error);
-        console.error(error);
     }
 };
 
@@ -25,7 +23,7 @@ export const login = async(req, res, next) => {
         const custom = {
             token
         };
-        
+
         res.status(200).json({
             message: "Usuario logueado con éxito",
             statusCode: 200,
@@ -37,3 +35,28 @@ export const login = async(req, res, next) => {
         next(error);
     }
 };
+
+
+export const updatePersonalInfo = async(req, res, next) => {
+    try {
+        const { id } = req.params;
+        const dataUsuario = req.body;
+
+        const [ datosUsuarioOld, datosUsuarioUpdated ] = await updatePersonalInfoByIdService(id, dataUsuario);
+
+        const custom = {
+            oldData: datosUsuarioOld
+        };
+
+        res.status(201).json({
+            message: `Usuario con el id: ${id} actualizado con éxito`, custom,
+            statusCode: 201,
+            data: datosUsuarioUpdated,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+
