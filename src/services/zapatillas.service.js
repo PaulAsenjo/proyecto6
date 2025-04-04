@@ -52,10 +52,9 @@ export const createZapatillasService = async(dataZapatilla) => {
 
 export const updateZapatillasByIdService = async(id, dataZapatilla) => {
     try {
-        //Hay que validar datos
         const zapatillaOld = await Zapatillas.findOneAndUpdate({ _id: id, isActive: true }, dataZapatilla);
 
-        const zapatillaUpdated = await Zapatillas.findById(id, { isActive: true });
+        const zapatillaUpdated = await Zapatillas.findOne({ _id:id , isActive: true });
 
         notFoundActiveData(
             zapatillaOld,

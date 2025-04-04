@@ -34,6 +34,7 @@ export const registerService = async({
 
         return user;
     } catch (error) {
+        console.error(error)
         throw new Error("Error al intentar registrar el usuario", 500, error);       
     }
 };
@@ -47,7 +48,7 @@ export const loginService = async({ correo, password }) => {
        if(!user || !passwordMatch) {
         throw new AuthError("Credenciales incorrectas", 401);
        }
-
+    console.log(jwtExpiration)
        const token = jwt.sign({
            uid: user._id,
            nombre: user.nombre,

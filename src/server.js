@@ -19,7 +19,7 @@ app.use(express.urlencoded( { extended: true}));
 //Middlewares de rutas
 
 app.use("/api/v1", zapatillasRouter);
-app.use("/api/v1", authRouter);
+app.use("/api/v1/auth", authRouter);
 
 //Middlewares de errores
 
