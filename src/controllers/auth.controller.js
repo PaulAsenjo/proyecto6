@@ -1,4 +1,4 @@
-import { loginService, registerService, updatePersonalInfoByIdService } from "../services/auth.service.js";
+import { loginService, registerService, updatePersonalInfoByIdService, getAllUsersService } from "../services/auth.service.js";
 
 
 export const register = async(req, res, next) => {
@@ -58,5 +58,19 @@ export const updatePersonalInfo = async(req, res, next) => {
     }
 };
 
+
+export const getAllUsers = async(req, res, next) => {
+    try {
+        const users = await getAllUsersService();
+
+        res.status(200).json({
+            message: 'Usuarios encontrados con éxito',
+            statusCode: 200,
+            data: users,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 

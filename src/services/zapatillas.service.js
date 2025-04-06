@@ -119,6 +119,54 @@ export const restoreZapatillasByIdService = async(id) => {
 };
 
 
+export const getZapatillasPorMarcaService = async(brand) => {
+    try {
+        const zapatillas = await Zapatillas.find({ brand: brand, isActive: true });
+
+        notFoundData(
+            zapatillas,
+            "No pudimos encontrar zapatillas para la marca especificada",
+            "No pudimos encontrar zapatillas en la base de datos en la colección de zapatillas para la marca: " + brand
+        );
+
+        return zapatillas;
+    } catch (error) {
+        throw new ZapatillasError("Error al intentar obtener las zapatillas por marca", 500, error);
+    }
+};
+
+
+export const getZapatillasPorStatusService = async(status) => {
+    try {
+        const zapatillas = await Zapatillas.find({ status: status, isActive: true });
+
+        notFoundData(
+            zapatillas,
+            "No pudimos encontrar zapatillas para el status especificado",
+            "No pudimos encontrar zapatillas en la base de datos en la colección de zapatillas para el estatus: " + status
+        );
+
+        return zapatillas;
+    } catch (error) {
+        throw new ZapatillasError("Error al intentar obtener las zapatillas por status", 500, error);
+    }
+};
+
+
+export const contarZapatillasPorStatusService = async(status) => {
+    try {
+        // Contar zapatillas que coincidan con el estado y que estén activas
+        const cantidad = await Zapatillas.countDocuments({ status: status, isActive: true });
+
+        return cantidad; // Retorna la cantidad encontrada
+    } catch (error) {
+        throw new ZapatillasError("Error al intentar contar las zapatillas por status", 500, error);
+    }
+};
+
+
+
+
 
 //ADMIN
 export const getDeleteAllZapatillasService = async () => {

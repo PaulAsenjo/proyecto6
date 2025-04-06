@@ -1,10 +1,13 @@
 import { 
+    contarZapatillasPorStatusService,
     createZapatillasService, 
     deleteZapatillasByIdService, 
     getAllZapatillasService, 
     getDeleteAllZapatillasService, 
     getDeleteZapatillasByIdService, 
     getZapatillasByIDService, 
+    getZapatillasPorMarcaService, 
+    getZapatillasPorStatusService, 
     permaDeleteZapatillaByIdService, 
     restoreZapatillasByIdService, 
     updateZapatillasByIdService } from "../services/zapatillas.service.js";
@@ -122,6 +125,57 @@ export const restoreZapatillasById = async(req, res, next) => {
         next(error);
     }
 };
+
+
+export const getZapatillasPorMarca = async(req, res, next) => {
+    try {
+        const { brand } = req.params;
+        const zapatillas = await getZapatillasPorMarcaService(brand);
+
+        res.status(200).json({
+            message: "Zapatillas encontradas con éxito",
+            statusCode: 200,
+            data: zapatillas,
+        });    
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+export const getZapatillasPorStatus = async(req, res, next) => {
+    try {
+        const { status } = req.params;
+        const zapatillas = await getZapatillasPorStatusService(status);
+
+        res.status(200).json({
+            message: "Zapatillas encontradas con éxito",
+            statusCode: 200,
+            data: zapatillas,
+        });    
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+export const contarZapatillasPorStatus = async(req, res, next) => {
+    const { status } = req.params; 
+
+    try {
+        const cantidad = await contarZapatillasPorStatusService(status);
+        
+        res.status(200).json({
+            message: `Cantidad de zapatillas en estado "${status}": ${cantidad}`,
+            statusCode: 200,
+            data: { cantidad },
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 
 
 

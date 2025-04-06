@@ -80,7 +80,7 @@ export const updatePersonalInfoByIdService = async(id, dataUsuario) => {
         const datosUsuarioUpdated = await Usuario.findOneAndUpdate(
             { _id: id, isActive: true },
             dataUsuario,
-            { new: true } // Devuelve el documento actualizado
+            { new: true } 
         );
 
         return [datosUsuarioOld, datosUsuarioUpdated];
@@ -90,6 +90,14 @@ export const updatePersonalInfoByIdService = async(id, dataUsuario) => {
 };
 
 
-
+export const getAllUsersService = async() => {
+    try {
+        const users = await Usuario.find({ isActive: true });
+    
+        return users;
+    } catch (error) {
+        throw new Error('Error al intentar obtener todos los usuarios', 500, error);
+    }
+};
 
         
