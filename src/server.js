@@ -28,8 +28,8 @@ app.use("/api/v1/auth", authRouter);
 
 // Configuración de Swagger
 
-const __filename = new URL(import.meta.url).pathname; // Obtener la ruta del archivo actual
-const __dirname = path.dirname(__filename); // Obtener el directorio del archivo actual
+const __filename = new URL(import.meta.url).pathname; 
+const __dirname = path.dirname(__filename); 
 const swaggerDocument = YAML.load(path.join(__dirname, 'api.docs.yaml'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
