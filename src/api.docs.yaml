@@ -1,0 +1,681 @@
+openapi: 3.0.0
+info:
+  title: API de Zapatillas
+  description: API para gestionar colección de zapatillas.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Servidor local
+
+paths:
+  /zapatillas:
+    get:
+      summary: Obtener todas las zapatillas
+      responses:
+        '200':
+          description: Lista de zapatillas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  message:
+                    type: string
+                    example: "Zapatillas encontradas con éxito"
+                  statusCode:
+                    type: integer
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      type: object
+                  properties:
+                    id:
+                      type: string
+                    brand:
+                      type: string
+                    colorway:
+                      type: array
+                    marketValue:
+                      type: number
+                    releaseYear:
+                      type: number      
+                    status:
+                      type: string
+                    isActive: 
+                      type: boolean  
+        '404':
+          description: No se encontraron zapatillas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No pudimos encontrar las zapatillas"
+                  statusCode:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar obtener todas las zapatillas"
+                  statusCode:
+                    type: integer
+                    example: 500      
+
+  /zapatillas/:id:
+    get:
+      summary: Obtener una zapatilla por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la zapatilla a obtener
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Zapatilla encontrada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Zapatillas con el id: {id} encontrada con éxito"
+                  statusCode:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      id:
+                      type: string
+                    brand:
+                      type: string
+                    colorway:
+                      type: array
+                    marketValue:
+                      type: number
+                    releaseYear:
+                      type: number      
+                    status:
+                      type: string
+                    isActive: 
+                      type: boolean  
+        '404':
+          description: Zapatilla no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No pudimos encontrar la Zapatilla con el id: {id}"
+                  statusCode:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar obtener una zapatilla por ID"
+                  statusCode:
+                    type: integer
+                    example: 500
+
+  /zapatillas/create:
+    post:
+      summary: Crear una nueva zapatilla
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  example: "Dunk low"
+                brand:
+                  type: string
+                  example: "Nike"
+                colorway:
+                  type: array
+                  example: ["rojo, blanco"]  
+                marketValue:
+                  type: number
+                  example: 1800
+                releaseYear:
+                  type: number
+                  example: 2025    
+                status:
+                  type: string
+                  example: "Disponible"  
+      responses:
+        '201':
+          description: Zapatilla creada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Zapatilla creada con éxito"
+                  statusCode:
+                    type: integer
+                    example: 201
+                  data:
+                    type: object
+                    properties:
+                      id:
+                      type: string
+                    brand:
+                      type: string
+                    colorway:
+                      type: array
+                    marketValue:
+                      type: number
+                    releaseYear:
+                      type: number      
+                    status:
+                      type: string
+                    isActive: 
+                      type: boolean  
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar crear una zapatilla"
+                  statusCode:
+                    type: integer
+                    example: 400
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar crear una zapatilla"
+                  statusCode:
+                    type: integer
+                    example: 500
+
+/zapatillas/:id:
+    put:
+      summary: Actualizar una zapatilla por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la zapatilla a actualizar
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                brand:
+                  type: string
+                  example: "Adidas"
+                status:
+                  type: string
+                  example: "No disponible"
+      responses:
+        '200':
+          description: Zapatilla actualizada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Zapatillas con el id: {id} actualizada con éxito"
+                  statusCode:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      id:
+                      type: string
+                    brand:
+                      type: string
+                    colorway:
+                      type: array
+                    marketValue:
+                      type: number
+                    releaseYear:
+                      type: number      
+                    status:
+                      type: string
+                    isActive: 
+                      type: boolean 
+        '404':
+          description: Zapatilla no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No pudimos encontrar las Zapatillas con el id: {id}"
+                  statusCode:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar actualizar la zapatilla con el ID"
+                  statusCode:
+                    type: integer
+                    example: 500
+
+/zapatillas/admin/perma/:id:
+    delete:
+      summary: Eliminar permanentemente una zapatilla por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la zapatilla a eliminar
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Zapatilla eliminada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Zapatillas con el id: {id} eliminada con éxito"
+                  statusCode:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      id:
+                      type: string
+                    brand:
+                      type: string
+                    colorway:
+                      type: array
+                    marketValue:
+                      type: number
+                    releaseYear:
+                      type: number      
+                    status:
+                      type: string
+                    isActive: 
+                      type: boolean 
+        '404':
+          description: Zapatilla no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No pudimos encontrar la Zapatilla con el id: {id}"
+                  statusCode:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar eliminar permanentemente la zapatilla con el id: {id}"
+                  statusCode:
+                    type: integer
+                    example: 500
+
+/zapatillas/:id:
+    delete:
+      summary: Eliminar permanentemente una zapatilla por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la zapatilla a eliminar
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Zapatilla eliminada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Zapatillas con el id: {id} eliminada con éxito"
+                  statusCode:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      id:
+                      type: string
+                    brand:
+                      type: string
+                    colorway:
+                      type: array
+                    marketValue:
+                      type: number
+                    releaseYear:
+                      type: number      
+                    status:
+                      type: string
+                    isActive: 
+                      type: boolean 
+        '404':
+          description: Zapatilla no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No pudimos encontrar la Zapatilla con el id: {id}"
+                  statusCode:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar eliminar permanentemente la zapatilla con el id: {id}"
+                  statusCode:
+                    type: integer
+                    example: 
+                    
+/zapatillas/admin/restore/:id:
+    delete:
+      summary: Restaurar permanentemente una zapatilla por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la zapatilla a restaurar
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Zapatilla restaurada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Zapatillas con el id: {id} restaurada con éxito"
+                  statusCode:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      brand:
+                        type: string
+                      status:
+                        type: string
+        '404':
+          description: Zapatilla no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No pudimos encontrar la Zapatilla con el id: {id}"
+                  statusCode:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar restaurar la zapatilla con el id: {id}"
+                  statusCode:
+                    type: integer
+                    example: 500
+
+
+/zapatillas/brand/:brand:
+    get:
+      summary: Obtener zapatillas por marca
+      parameters:
+        - name: brand
+          in: path
+          required: true
+          description: Marca de las zapatillas a obtener
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de zapatillas de la marca especificada
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    brand:
+                      type: string
+                    colorway:
+                      type: array
+                    marketValue:
+                      type: number
+                    releaseYear:
+                      type: number      
+                    status:
+                      type: string
+                    isActive: 
+                      type: boolean 
+        '404':
+          description: Zapatilla no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: "No pudimos encontrar zapatillas para la marca especificada"
+                  statusCode:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar obtener las zapatillas por marca"
+                  statusCode:
+                    type: integer
+                    example: 500
+
+/zapatillas/status/:status:
+    get:
+      summary: Obtener zapatillas por estado
+      parameters:
+        - name: status
+          in: path
+          required: true
+          description: Estado de las zapatillas a obtener
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de zapatillas en el estado especificado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      id:
+                      type: string
+                    brand:
+                      type: string
+                    colorway:
+                      type: array
+                    marketValue:
+                      type: number
+                    releaseYear:
+                      type: number      
+                    status:
+                      type: string
+                    isActive: 
+                      type: boolean 
+        '404':
+          description: Zapatilla no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: "No pudimos encontrar zapatillas para el status especificado"
+                  statusCode:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar obtener las zapatillas por status"
+                  statusCode:
+                    type: integer
+                    example: 500
+
+/zapatillas/cantidad/status/:status:
+    get:
+      summary: Contar zapatillas por estado
+      parameters:
+        - name: status
+          in: path
+          required: true
+          description: Estado de las zapatillas a contar
+          schema:
+            type: string
+            example: "En colección"
+      responses:
+        '200':
+          description: Cantidad de zapatillas encontradas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cantidad:
+                    type: integer
+        '404':
+          description: Zapatilla no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                  statusCode:
+                    type: integer
+                    example: 404
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al intentar contar las zapatillas por status"
+                  statusCode:
+                    type: integer
+                    example: 500
+
+
+              
+
+ 
+                        

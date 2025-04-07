@@ -155,10 +155,9 @@ export const getZapatillasPorStatusService = async(status) => {
 
 export const contarZapatillasPorStatusService = async(status) => {
     try {
-        // Contar zapatillas que coincidan con el estado y que estén activas
         const cantidad = await Zapatillas.countDocuments({ status: status, isActive: true });
 
-        return cantidad; // Retorna la cantidad encontrada
+        return cantidad; 
     } catch (error) {
         throw new ZapatillasError("Error al intentar contar las zapatillas por status", 500, error);
     }
