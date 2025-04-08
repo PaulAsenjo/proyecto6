@@ -32,7 +32,7 @@ router.post("/zapatillas", createZapatillas);
 router.get("/zapatillas/admin/erased", authMiddleware, getDeleteAllZapatillas);
 router.get("/zapatillas/admin/erased/:id", authMiddleware, getDeleteZapatillasByID);
 router.patch("/zapatillas/admin/restore/:id", authMiddleware, restoreZapatillasById);
-router.put("/zapatillas/:id", authMiddleware, updateZapatillasById);
+router.put("/zapatillas/admin/:id", authMiddleware, updateZapatillasById);
 router.delete("/zapatillas/admin/perma/:id", authMiddleware, permaDeleteZapatillaById);
 router.delete("/zapatillas/admin/:id", authMiddleware, deleteZapatillaById);
 
