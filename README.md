@@ -77,7 +77,8 @@ npm run dev
 
 ## 🌐 Deploy
 
-La API está desplegada en Render. Puedes usar herramientas como Postman para consumirla.
+La API está desplegada en Render iniciada en swagger. Puedes usar herramientas como Postman para consumirla.
+https://app-zapatillas.onrender.com/api-docs
 
 ---
 👟👟👟👟👟👟
