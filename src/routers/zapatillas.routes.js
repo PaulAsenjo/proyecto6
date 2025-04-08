@@ -24,16 +24,16 @@ router.get("/zapatillas/brand/:brand", getZapatillasPorMarca);
 router.get("/zapatillas/status/:status", getZapatillasPorStatus);
 router.get("/zapatillas/cantidad/status/:status", contarZapatillasPorStatus);
 router.post("/zapatillas", createZapatillas);
-router.put("/zapatillas/:id", updateZapatillasById);
-router.delete("/zapatillas/:id", authMiddleware, deleteZapatillaById);
 
 
 
 
 //ADMIN
-router.get("/zapatillas/admin/erased", getDeleteAllZapatillas);
-router.get("/zapatillas/admin/erased/:id", getDeleteZapatillasByID);
-router.patch("/zapatillas/admin/restore/:id", restoreZapatillasById);
-router.delete("/zapatillas/admin/perma/:id", permaDeleteZapatillaById);
+router.get("/zapatillas/admin/erased", authMiddleware, getDeleteAllZapatillas);
+router.get("/zapatillas/admin/erased/:id", authMiddleware, getDeleteZapatillasByID);
+router.patch("/zapatillas/admin/restore/:id", authMiddleware, restoreZapatillasById);
+router.put("/zapatillas/:id", authMiddleware, updateZapatillasById);
+router.delete("/zapatillas/admin/perma/:id", authMiddleware, permaDeleteZapatillaById);
+router.delete("/zapatillas/admin/:id", authMiddleware, deleteZapatillaById);
 
 export default router;
