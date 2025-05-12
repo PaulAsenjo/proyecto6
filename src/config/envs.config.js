@@ -18,3 +18,4 @@ export const envs = {
         sandbox: process.env.MERCADOPAGO_SANDBOX || false
     }
 };
+
